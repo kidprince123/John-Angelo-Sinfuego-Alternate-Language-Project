@@ -154,4 +154,30 @@ public class Cell{
                 ", platformOs='" + platformOs + '\'' +
                 '}';
     }
+
+        // Method to read data from CSV file, clean it, and store in a HashMap
+        public static HashMap<Integer, Cell> readCSV(String filename) {
+            HashMap<Integer, Cell> cellMap = new HashMap<>();
+            try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+                String line;
+    
+                // Skip the header line
+                br.readLine();
+    
+                int index = 0;
+                while ((line = br.readLine()) != null) {
+                    // Split the CSV line by comma and include empty values
+                    String[] data = line.split(",", -1); 
+                    // Clean each data element and create a Cell object
+                    if (data.length >= 12) { // Make sure there are at least 12 columns
+                        Cell cell = cleanData(data);
+                        // Store Cell object in HashMap
+                        cellMap.put(index++, cell);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return cellMap;
+        }
 }
