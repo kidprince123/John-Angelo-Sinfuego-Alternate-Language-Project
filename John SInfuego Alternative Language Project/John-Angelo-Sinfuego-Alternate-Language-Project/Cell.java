@@ -135,4 +135,23 @@ public class Cell{
     public void setPlatformOs(String platformOs) {
         this.platformOs = platformOs;
     }
+
+    // Override the toString() method
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "oem='" + oem + '\'' +
+                ", model='" + model + '\'' +
+                ", launchAnnounced=" + launchAnnounced +
+                ", launchStatus='" + launchStatus + '\'' +
+                ", bodyDimensions='" + bodyDimensions + '\'' +
+                ", bodyWeight=" + bodyWeight +
+                ", bodySim='" + bodySim + '\'' +
+                ", displayType='" + displayType + '\'' +
+                ", displaySize=" + displaySize +
+                ", displayResolution='" + displayResolution + '\'' +
+                ", featuresSensors='" + featuresSensors + '\'' +
+                ", platformOs='" + platformOs + '\'' +
+                '}';
+    }
 }
