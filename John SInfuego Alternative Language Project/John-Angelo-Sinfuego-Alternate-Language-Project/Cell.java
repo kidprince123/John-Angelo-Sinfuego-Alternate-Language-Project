@@ -180,4 +180,31 @@ public class Cell{
             }
             return cellMap;
         }
+
+        // Method to clean data and create a Cell object
+    private static Cell cleanData(String[] data) {
+        String oem = data.length > 0 && !data[0].equals("-") ? data[0] : null;
+        String model = data.length > 1 && !data[1].equals("-") ? data[1] : null;
+        Integer launchAnnounced = null;
+        if (data[2].matches("\\d{4}")) {
+            launchAnnounced = Integer.parseInt(data[2]);
+        }
+        String launchStatus = data[3];
+        String bodyDimensions = data[4].equals("-") ? null : data[4];
+        Float bodyWeight = null;
+        String weightStr = data[5].split(" ")[0]; // This splits the weight by space and takes the first part
+        if (weightStr.matches("\\d+")) {
+        bodyWeight = Float.parseFloat(weightStr);
+}
+        String bodySim = data[6].equals("No") ? null : data[6];
+        String displayType = data[7].equals("-") ? null : data[7];
+        Float displaySize = null;
+        if (data[8].matches("\\d+(\\.\\d+)?")) {
+            displaySize = Float.parseFloat(data[8]);
+        }
+        String displayResolution = data[9].equals("-") ? null : data[9];
+        String featuresSensors = data[10].equals("V1") ? "V1" : null; // Assuming "V1" is a valid sensor
+        String platformOs = data.length > 11 && !data[11].isEmpty() ? data[11].split(",")[0].trim() : null;
+        return new Cell(oem, model, launchAnnounced, launchStatus, bodyDimensions, bodyWeight, bodySim, displayType, displaySize, displayResolution, featuresSensors, platformOs);
+    }
 }
