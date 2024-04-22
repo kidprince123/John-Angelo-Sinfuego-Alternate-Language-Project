@@ -247,4 +247,35 @@ public static ArrayList<String> findPhonesAnnouncedReleasedDiffYears(HashMap<Int
     }
     return mismatchedPhones;
 }
+
+     // Method to count phones with only one feature sensor
+     public static int countPhonesWithOneSensor(HashMap<Integer, Cell> cellMap) {
+        int count = 0;
+        for (Cell cell : cellMap.values()) {
+            if (cell.getFeaturesSensors() != null && cell.getFeaturesSensors().equals("V1")) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // Method to find the year with the most phones launched after 1999
+    public static int findYearWithMostPhones(HashMap<Integer, Cell> cellMap) {
+        HashMap<Integer, Integer> yearCountMap = new HashMap<>();
+        for (Cell cell : cellMap.values()) {
+            if (cell.getLaunchAnnounced() != null && cell.getLaunchAnnounced() > 1999) {
+                int year = cell.getLaunchAnnounced();
+                yearCountMap.put(year, yearCountMap.getOrDefault(year, 0) + 1);
+            }
+        }
+        int maxCount = 0;
+        int maxYear = 0;
+        for (int year : yearCountMap.keySet()) {
+            if (yearCountMap.get(year) > maxCount) {
+                maxCount = yearCountMap.get(year);
+                maxYear = year;
+            }
+        }
+        return maxYear;
+    }
 }
