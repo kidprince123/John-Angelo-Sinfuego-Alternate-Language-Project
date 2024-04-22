@@ -207,4 +207,33 @@ public class Cell{
         String platformOs = data.length > 11 && !data[11].isEmpty() ? data[11].split(",")[0].trim() : null;
         return new Cell(oem, model, launchAnnounced, launchStatus, bodyDimensions, bodyWeight, bodySim, displayType, displaySize, displayResolution, featuresSensors, platformOs);
     }
+
+    // Method to find the company with the highest average weight of the phone body
+    public static String findHighestAvgBodyWeightOEM(HashMap<Integer, Cell> cellMap) {
+        HashMap<String, Float> totalWeightMap = new HashMap<>();
+        HashMap<String, Integer> countMap = new HashMap<>();
+        for (Cell cell : cellMap.values()) {
+            if (cell.getBodyWeight() != null) {
+                String company = cell.getOem();
+                Float weight = cell.getBodyWeight();
+                if (totalWeightMap.containsKey(company)) {
+                    totalWeightMap.put(company, totalWeightMap.get(company) + weight);
+                    countMap.put(company, countMap.get(company) + 1);
+                } else {
+                    totalWeightMap.put(company, weight);
+                    countMap.put(company, 1);
+                }
+            }
+        }
+        float maxAvg = 0;
+        String maxCompany = null;
+        for (String company : totalWeightMap.keySet()) {
+            float avgWeight = totalWeightMap.get(company) / countMap.get(company);
+            if (avgWeight > maxAvg) {
+                maxAvg = avgWeight;
+                maxCompany = company;
+            }
+        }
+        return maxCompany;
+    }
 }
