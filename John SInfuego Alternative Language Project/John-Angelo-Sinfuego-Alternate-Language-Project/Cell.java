@@ -236,4 +236,15 @@ public class Cell{
         }
         return maxCompany;
     }
+
+        // Method to find phones announced in one year and released in another
+public static ArrayList<String> findPhonesAnnouncedReleasedDiffYears(HashMap<Integer, Cell> cellMap) {
+    ArrayList<String> mismatchedPhones = new ArrayList<>();
+    for (Cell cell : cellMap.values()) {
+        if (cell.getLaunchAnnounced() != null && !cell.getLaunchStatus().contains(cell.getLaunchAnnounced().toString())) {
+            mismatchedPhones.add(cell.getOem() + " " + cell.getModel());
+        }
+    }
+    return mismatchedPhones;
+}
 }
